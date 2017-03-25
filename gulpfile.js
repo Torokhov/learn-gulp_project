@@ -7,15 +7,18 @@ const sourcemaps = require('gulp-sourcemaps');
 const gulpIf = require('gulp-if');
 const del = require('del');
 const browserSync = require('browser-sync').create();
+const notify = require('gulp-notify');
+const multipipe = require('multipipe');
 
 const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'development';
 
 gulp.task('styles', function() {
-  return gulp.src('frontend/styles/main.less')
-    .pipe(gulpIf(isDevelopment, sourcemaps.init()))
-    .pipe(less())
-    .pipe(gulpIf(isDevelopment, sourcemaps.write()))
-    .pipe(gulp.dest('public'));
+  return multipipe( 
+    gulp.src('frontend/styles/main.less'),
+    gulpIf(isDevelopment, sourcemaps.init()),
+    less(),
+    gulpIf(isDevelopment, sourcemaps.write()),
+    gulp.dest('public')).on('error', notify.onError());
   
 });
 

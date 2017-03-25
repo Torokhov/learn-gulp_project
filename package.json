@@ -24,6 +24,8 @@
     "gulp-debug": "^3.1.0",
     "gulp-if": "^2.0.2",
     "gulp-less": "^3.3.0",
-    "gulp-sourcemaps": "^2.4.1"
+    "gulp-notify": "^3.0.0",
+    "gulp-sourcemaps": "^2.4.1",
+    "multipipe": "^1.0.2"
   }
 }
