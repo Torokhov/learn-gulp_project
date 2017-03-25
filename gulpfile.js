@@ -23,8 +23,16 @@ gulp.task('clean', function() {
 });
 
 gulp.task('assets', function() {
-  return gulp.src('frontend/assets/**')
+  return gulp.src('frontend/assets/**', {since: gulp.lastRun('assets')})
     .pipe(gulp.dest('public'));
 });
 
 gulp.task('build', gulp.series('clean', gulp.parallel('styles', 'assets')));
+
+gulp.task('watch', function() {
+  gulp.watch('frontend/styles/**/*.*', gulp.series('styles'));
+
+  gulp.watch('frontend/assets/**/*.*', gulp.series('assets'));
+});
+
+gulp.task('dev', gulp.series('build', 'watch'));
